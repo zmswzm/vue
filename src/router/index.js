@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import store from '@/store'
+import store from '../store'
 import HelloWorld from '@/components/HelloWorld'
 import VueComponents from '@/components/VueComponents'
 import VueToast from '@/components/VueToast'
@@ -118,12 +118,14 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (!store.getters.getStorage) {
-    next({
-      path: '/login',
-      query: { redirect: to.fullPath }
-    })
+  if (to.name === 'Login' && !store.getters.getStorage) {
+    console.log('测试1:' + to.name)
+    next()
+  } else if (!store.getters.getStorage) {
+    console.log('测试2:' + to.name)
+    next('login')
   } else {
+    console.log('测试3')
     next()
   }
 })

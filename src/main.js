@@ -37,14 +37,3 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
-
-router.beforeEach((to, from, next) => {
-  if (!this.$store.getters.getStorage) {
-    next({
-      path: '/login',
-      query: { redirect: to.fullPath }
-    })
-  } else {
-    next()
-  }
-})
