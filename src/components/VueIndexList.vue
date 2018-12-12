@@ -6,7 +6,7 @@
       </router-link>
     </mt-header>
       <mt-index-list class = "indexList" @click="handClick3">
-        <mt-index-section v-for="(item, index) in blist" :index="item.title" :key="index">
+        <mt-index-section v-for="(item, index) in getBlist" :index="item.title" :key="index">
           <div v-for="(sec, index) in item.items" :key="index">
             <img slot="icon" src="../assets/logo.png" width="24" height="24">
             <span>{{ sec.name }}</span>
@@ -48,13 +48,26 @@
 
 <script>
 import { Toast } from 'mint-ui'
+import httpClient from '../axios'
 
 export default {
   name: 'VueIndexList',
   data () {
     return {
-      blist: this.$store.getters.doneUsers,
       msg: '/components'
+    }
+  },
+  created: function () {
+    httpClient.get('/user').then(response => {
+      console.log('/user')
+      this.$store.dispatch('addUser', response.data.data)
+    }).catch(function (error) {
+      console.log(error)
+    })
+  },
+  computed: {
+    getBlist: function () {
+      return this.$store.getters.doneUsers
     }
   },
   methods: {

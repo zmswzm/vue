@@ -6,32 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: null,
-    users: [{title: 'A',
-      items: [
-        { name: 'aom', done: true },
-        { name: 'aim', done: true },
-        { name: 'allen', done: true }]
-    }, {title: 'B',
-      items: [
-        { name: 'bom', done: true },
-        { name: 'bim', done: true },
-        { name: 'bllen', done: true }]
-    }, {title: 'C',
-      items: [
-        { name: 'com', done: true },
-        { name: 'cim', done: true },
-        { name: 'cllen', done: true }]
-    }, {title: 'D',
-      items: [
-        { name: 'dom', done: true },
-        { name: 'dim', done: true },
-        { name: 'dllen', done: true }]
-    }, {title: 'E',
-      items: [
-        { name: 'eom', done: true },
-        { name: 'eim', done: true },
-        { name: 'ellen', done: true }]
-    }]
+    users: null
   },
   getters: {
     getStorage: state => {
@@ -54,7 +29,7 @@ export default new Vuex.Store({
       localStorage.removeItem('user')
     },
     add (state, data) {
-      state.users.push(data)
+      state.users = data
     },
     del (state, i) {
       state.users.splice(i, 1)
